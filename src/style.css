@@ -1,0 +1,283 @@
+@import url('https://rsms.me/inter/inter.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Base Styles */
+@layer base {
+    * {
+        @apply scroll-smooth;
+    }
+
+    body {
+        background-color: #0a0e27;
+        font-family: 'Inter', sans-serif;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Advanced Circuit Board Background Pattern */
+@layer utilities {
+    .bg-circuit-pattern {
+        position: relative;
+        background: 
+            /* Horizontal lines */
+            repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 40px,
+                rgba(229, 9, 20, 0.08) 40px,
+                rgba(229, 9, 20, 0.08) 41px
+            ),
+            /* Vertical lines */
+            repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 40px,
+                rgba(229, 9, 20, 0.08) 40px,
+                rgba(229, 9, 20, 0.08) 41px
+            ),
+            /* Diagonal lines (top-left to bottom-right) */
+            repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 60px,
+                rgba(100, 150, 200, 0.05) 60px,
+                rgba(100, 150, 200, 0.05) 61px
+            ),
+            /* Diagonal lines (top-right to bottom-left) */
+            repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 60px,
+                rgba(100, 150, 200, 0.05) 60px,
+                rgba(100, 150, 200, 0.05) 61px
+            );
+        background-color: #0a0e27;
+    }
+}
+
+/* Neon accent lines using pseudo-elements */
+@layer utilities {
+    .circuit-accent::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 600px;
+        height: 600px;
+        background: 
+            /* Diagonal accent lines */
+            repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 80px,
+                rgba(229, 9, 20, 0.15) 80px,
+                rgba(229, 9, 20, 0.15) 85px
+            );
+        pointer-events: none;
+        z-index: 1;
+        transform: translate(100px, -100px);
+    }
+
+    .circuit-accent::after {
+        content: '';
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 600px;
+        height: 600px;
+        background: 
+            /* Diagonal accent lines */
+            repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 80px,
+                rgba(229, 9, 20, 0.12) 80px,
+                rgba(229, 9, 20, 0.12) 85px
+            );
+        pointer-events: none;
+        z-index: 1;
+        transform: translate(-100px, 100px);
+    }
+}
+
+/* Glassmorphism Card Component */
+@layer components {
+    .glass-card {
+        position: relative;
+        padding: 2rem;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(229, 9, 20, 0.3);
+        backdrop-filter: blur(24px);
+        background-color: rgba(30, 30, 60, 0.4);
+        transition: all 0.5s ease;
+        overflow: hidden;
+    }
+
+    .glass-card:hover {
+        background-color: rgba(30, 30, 60, 0.6);
+        border-color: rgba(229, 9, 20, 0.6);
+        box-shadow: 0 8px 32px rgba(229, 9, 20, 0.2);
+    }
+
+    /* Subtle glow on hover */
+    .glass-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 0.75rem;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        background: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.2), transparent 70%);
+        pointer-events: none;
+    }
+
+    .glass-card:hover::before {
+        opacity: 1;
+    }
+
+    /* Ensure content stays above the pseudo-element */
+    .glass-card > * {
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Group hover effect for icons */
+    .glass-card svg {
+        transition: transform 0.3s ease;
+    }
+
+    .glass-card:hover svg {
+        transform: scale(1.1);
+    }
+}
+
+/* Glowing Button Component */
+@layer components {
+    .glow-btn {
+        position: relative;
+        padding: 0.75rem 2rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        color: white;
+        background-color: #E50914;
+        border: 1px solid #E50914;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 0 20px rgba(229, 9, 20, 0.8), 
+                    0 0 40px rgba(229, 9, 20, 0.4),
+                    inset 0 0 20px rgba(255, 255, 255, 0.1);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Hover state */
+    .glow-btn:hover {
+        background-color: #ff1a23;
+        border-color: #ff1a23;
+        box-shadow: 0 0 50px rgba(229, 9, 20, 1),
+                    0 0 80px rgba(229, 9, 20, 0.6),
+                    inset 0 0 20px rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    /* Active state */
+    .glow-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Shimmer animation effect */
+    .glow-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transform: translateX(-100%);
+        animation: shimmer 3s infinite;
+        pointer-events: none;
+    }
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Smooth scroll behavior */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+    @layer base {
+        h1 {
+            @apply text-4xl;
+        }
+
+        h2 {
+            @apply text-3xl;
+        }
+    }
+}
+
+/* Utility for tech-style text */
+.tech-text {
+    @apply font-mono text-sm tracking-wider;
+}
+
+/* Neon glow utility */
+.neon-glow {
+    text-shadow: 0 0 10px rgba(229, 9, 20, 0.8),
+                 0 0 20px rgba(229, 9, 20, 0.4);
+}
+
+/* Smooth transitions */
+@layer utilities {
+    .transition-smooth {
+        @apply transition-all duration-300 ease-out;
+    }
+}
+
+/* Accent line decoration */
+@layer utilities {
+    .accent-line {
+        position: relative;
+    }
+
+    .accent-line::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #E50914, transparent);
+    }
+}
